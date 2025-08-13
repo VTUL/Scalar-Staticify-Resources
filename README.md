@@ -102,6 +102,7 @@ $ find . -type f -name ".htaccess"
 ./migrant-works-of-the-virginia-tidewater/rdf/node/media/.htaccess
 ./migrant-works-of-the-virginia-tidewater/rdf/node/
 ./migrant-works-of-the-virginia-tidewater/rdf/instancesof/.htaccess
+./system/lenses/.htaccess
 ```
 
 All these `.htaccess` files can be found in the [webserver-config/apache](./webserver-config/apache/) folder. Here's one -
