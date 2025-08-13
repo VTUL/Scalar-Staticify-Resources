@@ -1,0 +1,9 @@
+# Location: /migrant-works-of-the-virginia-tidewater/rdf/node/media/.htaccess
+DirectoryIndex index.json
+Options +FollowSymlinks
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.json -f
+RewriteRule ^(.+)$ /migrant-works-of-the-virginia-tidewater/rdf/node/media/$1.json [L,QSA]

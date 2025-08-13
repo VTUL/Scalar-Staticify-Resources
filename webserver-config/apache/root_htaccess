@@ -1,0 +1,7 @@
+# Location: /migrant-works-of-the-virginia-tidewater/.htaccess
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ /migrant-works-of-the-virginia-tidewater/$1.html [L,QSA]
