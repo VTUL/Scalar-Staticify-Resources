@@ -1,5 +1,4 @@
 # Location: /migrant-works-of-the-virginia-tidewater/rdf/node/media/.htaccess
-DirectoryIndex index.json
 Options +FollowSymlinks
 RewriteEngine On
 RewriteBase /
