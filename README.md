@@ -142,7 +142,7 @@ jQuery34109919096372851329_1755031361525({
     ],
 ```
 
-An AJAX response with a randomly generated callback. Note the `jQuery34109919096372851329_1755031361525` at the beginning of this snippet.
+_Snippet of an AJAX response with a randomly generated callback. Note the `jQuery34109919096372851329_1755031361525` at the beginning of this snippet_
 
 To create a predictable and consistent callback, we make a few modifications in the `/system/application/views/widgets/api/scalarapi.js` file using the `jsonpCallback` parameter.
 
@@ -193,7 +193,7 @@ The Console and the Network tab in the web browser’s Developer View are the mo
 
 ![A failed XHR request in the Network tab of the Developer View](./images/failed-xhr-request.png)
 
-Image: Developer tools of the Mozilla Firefox browser with a missing media element XHR request (Pink 404 request for missing metadata amid green 200s)
+_Image: Developer tools of the Mozilla Firefox browser with a missing media element XHR request (Pink 404 request for missing metadata amid green 200s)_
 
 We download the missing metadata and put them into files like this -
 
@@ -218,7 +218,7 @@ SELECT * FROM `scalar_db_content` WHERE `type` = "media" AND `book_id` = 3 AND `
 The folders should now have JSON files containing the responses.
 
 ![Directory listing for rdf/node/media with the JSON responses](./images/rdf-node-media-directory-listing.png)
-Image: Directory listing of the rdf/node/media folder with .json responses.
+_Image: Directory listing of the rdf/node/media folder with .json responses_
 
 We have also made the necessary changes to load these JSON files without the extension, in the Nginx config, or added `.htaccess` files for Apache in the [Web Server Configuration](#web-server-configuration) section.
 
@@ -265,7 +265,7 @@ We then go through the same set of steps for any embedded YouTube videos whose m
 And finally, we repeat the steps for the Table of Contents’ Index items for the top navigation bar. Here, the code is a little different as we have to account for paginated results. In addition to adding a `jsonpCallback` parameter, we also need to update the location of the XHR request to have the start parameter coded into the body of the URL instead of being in the query string. We have applied this change already using the patch file at the beginning of the section, but here are the changes for illustrative purposes.
 
 ![Changes in scalarapi.js for loading index items](./images/index-items-scalarapi-changes.png)
-Image: The change in scalarapi.js for the Index items
+_Image: The change in scalarapi.js for the Index items_
 
 And the JSON response files should look like this -
 
