@@ -149,39 +149,50 @@ To create a predictable and consistent callback, we make a few modifications in 
 We also sanitize and cleanup the `jsonpCallback` parameter by using chained `replaceAll` methods to replace ‘/’ and ‘-’ with underscores.
 
 ```diff
-diff --git a/system/application/views/widgets/api/scalarapi.js b/system/application/views/widgets/api/scalarapi.js
-index 4bf3877..e703fcc 100644
---- a/system/application/views/widgets/api/scalarapi.js
-+++ b/system/application/views/widgets/api/scalarapi.js
+From 8a9faa2addda672695e1784e091cad7eb8557231 Mon Sep 17 00:00:00 2001
+From: Soumik Ghosh <soumik@soumikghosh.com>
+Date: Tue, 19 Aug 2025 17:25:19 -0400
+Subject: [PATCH] Add changes to scalarapi.js
+
+---
+ issues/system/application/views/widgets/api/scalarapi.js | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/issues/system/application/views/widgets/api/scalarapi.js b/issues/system/application/views/widgets/api/scalarapi.js
+index 4bf3877..84a8209 100644
+--- a/issues/system/application/views/widgets/api/scalarapi.js
++++ b/issues/system/application/views/widgets/api/scalarapi.js
 @@ -2155,6 +2155,7 @@ ScalarAPI.prototype.loadNode = ScalarAPI.prototype.loadPage = function(uriSegmen
-                                type:"GET",
-                                url:this.model.urlPrefix+'rdf/node/'+uriSegment+'?'+queryString,
-                                dataType:"jsonp",
-+                                jsonpCallback: uriSegment.replaceAll("/", "_").replaceAll('-','_'),
-                                context:this,
-                                success:[this.parsePage, successCallback],
-                                error:[this.handleLoadPageError, errorCallback]
+ 				type:"GET",
+ 				url:this.model.urlPrefix+'rdf/node/'+uriSegment+'?'+queryString,
+ 				dataType:"jsonp",
++				jsonpCallback: uriSegment.replaceAll("/", "_").replaceAll('-','_'),
+ 				context:this,
+ 				success:[this.parsePage, successCallback],
+ 				error:[this.handleLoadPageError, errorCallback]
 @@ -2258,6 +2259,7 @@ ScalarAPI.prototype.loadCurrentNode = ScalarAPI.prototype.loadCurrentPage = func
-                                type:"GET",
-                                url:this.model.urlPrefix+'rdf/node/'+this.stripVersion(this.basepath(document.location.href))+'?'+queryString,
-                                dataType:"jsonp",
-+                               jsonpCallback: this.stripVersion(this.basepath(document.location.href)).replaceAll("/", "_").replaceAll('-','_'),
-                                context:this,
-                                success:[this.parseCurrentPage, successCallback],
-                                error:[this.handleLoadCurrentPageError, errorCallback]
+ 				type:"GET",
+ 				url:this.model.urlPrefix+'rdf/node/'+this.stripVersion(this.basepath(document.location.href))+'?'+queryString,
+ 				dataType:"jsonp",
++				jsonpCallback: this.stripVersion(this.basepath(document.location.href)).replaceAll("/", "_").replaceAll('-','_'),
+ 				context:this,
+ 				success:[this.parseCurrentPage, successCallback],
+ 				error:[this.handleLoadCurrentPageError, errorCallback]
 @@ -2471,8 +2473,9 @@ ScalarAPI.prototype.loadNodesByType = ScalarAPI.prototype.loadPagesByType = func
-                //if (!this.loadPagesByTypeStatus.isLoading) {
-                        $.ajax({
-                                type:"GET",
--                               url:this.model.urlPrefix+'rdf/instancesof/'+type+'?'+queryString,
-+                               url:this.model.urlPrefix+'rdf/instancesof/'+type+'_'+start,
-                                dataType:"jsonp",
-+                                jsonpCallback: type+'_'+start,
-                                context:{type:type},
-                                success:[this.parsePagesByType, successCallback],
-                                error:[this.handleLoadPagesByTypeError, errorCallback]
+ 		//if (!this.loadPagesByTypeStatus.isLoading) {
+ 			$.ajax({
+ 				type:"GET",
+-				url:this.model.urlPrefix+'rdf/instancesof/'+type+'?'+queryString,
++				url:this.model.urlPrefix+'rdf/instancesof/'+type+'_'+start,
+ 				dataType:"jsonp",
++				jsonpCallback: type+'_'+start,
+ 				context:{type:type},
+ 				success:[this.parsePagesByType, successCallback],
+ 				error:[this.handleLoadPagesByTypeError, errorCallback]
+--
+2.43.0
 ```
-Source: [scalarapi.diff](./scripts/scalarapi.diff)
+Source: [scalarapi.patch](./scripts/scalarapi.patch)
 
 At this point we can start creating copies of the XHR JSON responses in the rdf folder. There are three locations in which different kinds of responses are stored -
 
